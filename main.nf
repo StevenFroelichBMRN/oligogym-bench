@@ -116,6 +116,10 @@ process CACHE_AB {
         --out ${cfg.simpleName}_cache.jsonl --seed ${params.seed} \\
         --folds ${params.folds} --tag "cache|${meta.model}|${meta.dataset}" \\
         > cache.log 2>&1
+
+    echo "=====RESULTS_BEGIN====="
+    cat ${cfg.simpleName}_cache.jsonl
+    echo "=====RESULTS_END====="
     """
 }
 
