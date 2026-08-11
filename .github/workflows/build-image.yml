@@ -14,6 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Lowercase image ref (GHCR requires lowercase repo names)
+        id: ref
+        run: echo "repo=ghcr.io/$(echo '${{ github.repository_owner }}' | tr 'A-Z' 'a-z')/oligogym-bench" >> "$GITHUB_OUTPUT"
+
       - name: Free disk space
         run: |
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
@@ -84,15 +88,16 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/oligogym-bench:latest
-            ghcr.io/${{ github.repository_owner }}/oligogym-bench:${{ github.sha }}
+            ${{ steps.ref.outputs.repo }}:latest
+            ${{ steps.ref.outputs.repo }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Report digest
         run: |
+          mkdir -p out && chmod 777 out
           docker buildx imagetools inspect \
-            ghcr.io/${{ github.repository_owner }}/oligogym-bench:${{ github.sha }} \
+            ${{ steps.ref.outputs.repo }}:${{ github.sha }} \
             | tee out/image_digest.txt
 
       - uses: actions/upload-artifact@v4
