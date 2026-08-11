@@ -217,17 +217,29 @@ def run_one_fold(config, data, k, seed, rng, feature_cache=None):
     rec["featurize_s"] = time.perf_counter() - t0
     rec["X_shape"] = shape_of(Xtr_f)
 
-    # RNA-FM guard: upstream silently falls back to 6-dim simple features when
-    # the checkpoint fails to load. Assert real 640-dim embeddings.
-    if config["featurizer"] == "RNAFMEmbeddings" and not config.get(
-        "featurizer_args", {}
-    ).get("flatten", False):
+    # RNA-FM guard: upstream silently falls back to a 6-dim
+    # _get_simple_features representation when the checkpoint fails to load --
+    # no exception, no warning. Assert the embedding width is really 640.
+    #
+    # Three valid shapes, all of which must pass:
+    #   flatten=False, sequence model  -> (n, L, 640)         3-D
+    #   flatten=False, flat model      -> (n, L*640)          harness reshapes
+    #                                     (FLAT_INPUT_MODELS branch in featurize)
+    #   flatten=True                   -> (n, 640)            pooled DataFrame
+    # The fallback would give a width of 6, which fails every case below.
+    if config["featurizer"] == "RNAFMEmbeddings":
         sh = rec["X_shape"]
-        if not (sh and len(sh) == 3 and sh[2] == 640):
+        ok = False
+        if sh and len(sh) == 3:
+            ok = sh[2] == 640
+        elif sh and len(sh) == 2:
+            # either pooled (==640) or flattened L*640 (divisible by 640)
+            ok = sh[1] == 640 or (sh[1] % 640 == 0 and sh[1] >= 640)
+        if not ok:
             raise RuntimeError(
-                f"RNA-FM produced shape {sh}, expected (n, L, 640). The "
-                "pretrained checkpoint did not load -- upstream silently "
-                "substitutes 6-dim _get_simple_features."
+                f"RNA-FM produced shape {sh}, whose feature width is not a "
+                "multiple of 640. The pretrained checkpoint did not load -- "
+                "upstream silently substitutes 6-dim _get_simple_features."
             )
 
     # ---- fit
