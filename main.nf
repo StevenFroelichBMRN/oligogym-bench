@@ -138,25 +138,36 @@ process GPU_PACK {
 }
 
 // ---------------------------------------------------------------- image validation
-process VALIDATE_IMAGE {
-    tag "${mode}"
-    label mode == 'gpu' ? 'validate_gpu' : 'validate_cpu'
-
-    input:
-    val mode
+process VALIDATE_IMAGE_CPU {
+    label 'validate_cpu'
 
     output:
-    path "validation_${mode}.json", emit: report
-    path "validation_${mode}.txt",  emit: log
+    path "validation_cpu.json", emit: report
+    path "validation_cpu.txt",  emit: log
 
     script:
-    def flag = mode == 'gpu' ? '--gpu' : '--build-time'
     """
-    nvidia-smi > validation_${mode}.txt 2>&1 || echo "no GPU visible" > validation_${mode}.txt
-    python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'arch', torch.cuda.get_arch_list())" >> validation_${mode}.txt 2>&1
+    echo "== CPU-class task ==" > validation_cpu.txt
+    python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'arch', torch.cuda.get_arch_list())" >> validation_cpu.txt 2>&1
+    python /opt/oligogym-bench/validate_image.py --build-time \\
+        --json-out validation_cpu.json >> validation_cpu.txt 2>&1
+    """
+}
 
-    python /opt/oligogym-bench/validate_image.py ${flag} \\
-        --json-out validation_${mode}.json >> validation_${mode}.txt 2>&1
+process VALIDATE_IMAGE_GPU {
+    label 'validate_gpu'
+
+    output:
+    path "validation_gpu.json", emit: report
+    path "validation_gpu.txt",  emit: log
+
+    script:
+    """
+    echo "== GPU-class task ==" > validation_gpu.txt
+    nvidia-smi >> validation_gpu.txt 2>&1 || echo "no nvidia-smi" >> validation_gpu.txt
+    python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'device', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, 'arch', torch.cuda.get_arch_list())" >> validation_gpu.txt 2>&1
+    python /opt/oligogym-bench/validate_image.py --gpu \\
+        --json-out validation_gpu.json >> validation_gpu.txt 2>&1
     """
 }
 
@@ -181,11 +192,22 @@ process COLLECT {
 // ---------------------------------------------------------------- workflow
 workflow {
     if (params.mode == 'validate') {
-        VALIDATE_IMAGE(Channel.of('cpu', 'gpu'))
-        VALIDATE_IMAGE.out.report
-            .collectFile(name: 'validation_reports.json', storeDir: params.outdir)
-        VALIDATE_IMAGE.out.log
-            .collectFile(name: 'validation_logs.txt', storeDir: params.outdir)
+        // GPU checks need a g4dn task; the CPU-class check confirms the same image
+        // runs on c6id/r6id/m6id. Launch this mode on each env separately.
+        if (params.compute_class in ['all', 'gpu']) {
+            VALIDATE_IMAGE_GPU()
+            VALIDATE_IMAGE_GPU.out.log
+                .collectFile(name: 'validation_gpu.txt', storeDir: params.outdir)
+            VALIDATE_IMAGE_GPU.out.report
+                .collectFile(name: 'validation_gpu.json', storeDir: params.outdir)
+        }
+        if (params.compute_class in ['all', 'cpu']) {
+            VALIDATE_IMAGE_CPU()
+            VALIDATE_IMAGE_CPU.out.log
+                .collectFile(name: 'validation_cpu.txt', storeDir: params.outdir)
+            VALIDATE_IMAGE_CPU.out.report
+                .collectFile(name: 'validation_cpu.json', storeDir: params.outdir)
+        }
     }
     else if (params.mode == 'pack') {
         // Sweep concurrency for the model classes whose cost profile differs most:
