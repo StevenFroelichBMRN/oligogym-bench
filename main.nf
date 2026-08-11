@@ -23,11 +23,15 @@ params.pack_levels = '1 2 4 8'
 params.pack_reps   = 2
 params.pack_model  = 'CNN'
 params.pack_dataset = 'siRNA1'
+// 'cpu' | 'gpu' | 'all' -- routes configs to the matching Batch env so the CPU and
+// GPU arms can run concurrently on their own queues.
+params.compute_class = 'all'
 
 // ---------------------------------------------------------------- calibrate
 process CALIBRATE {
     tag "${cfg.simpleName}"
-    label params.mode == 'calibrate' ? 'measure' : 'measure'
+    // gpu-class configs must land on a task with an accelerator attached.
+    label meta.compute_class == 'gpu' ? 'measure_gpu' : 'measure_cpu'
     // A failed config must not sink the run: record it and move on.
     errorStrategy 'ignore'
 
@@ -60,7 +64,7 @@ process CALIBRATE {
 // on identical folds rather than a comparison across two different runs.
 process CACHE_AB {
     tag "${cfg.simpleName}"
-    label 'measure'
+    label meta.compute_class == 'gpu' ? 'measure_gpu' : 'measure_cpu'
     errorStrategy 'ignore'
 
     input:
@@ -184,6 +188,10 @@ workflow {
             .map { f -> [f.simpleName, f] }
 
         joined = meta_ch.join(cfg_ch).map { _n, row, f -> [row, f] }
+
+        if (params.compute_class != 'all') {
+            joined = joined.filter { m, _f -> m.compute_class == params.compute_class }
+        }
 
         if (params.mode == 'cache') {
             // Featurization cost is what matters here, and it is dataset-scale
