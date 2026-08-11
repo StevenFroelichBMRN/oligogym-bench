@@ -51,6 +51,10 @@ process CALIBRATE_CPU {
         --seed ${params.seed} --folds ${params.folds} \\
         --tag "${meta.compute_class}|${meta.model}|${meta.dataset}|${meta.tier}" \\
         > ${cfg.simpleName}.log 2>&1
+
+    echo "=====RESULTS_BEGIN====="
+    cat ${cfg.simpleName}.jsonl
+    echo "=====RESULTS_END====="
     """
 }
 
@@ -78,6 +82,10 @@ process CALIBRATE_GPU {
         --seed ${params.seed} --folds ${params.folds} \\
         --tag "${meta.compute_class}|${meta.model}|${meta.dataset}|${meta.tier}" \\
         >> ${cfg.simpleName}.log 2>&1
+
+    echo "=====RESULTS_BEGIN====="
+    cat ${cfg.simpleName}.jsonl
+    echo "=====RESULTS_END====="
     """
 }
 
@@ -134,6 +142,13 @@ process GPU_PACK {
         --dataset ${dataset} \\
         --threads-per-proc 1 \\
         --out gpu_packing_${model}_${dataset}.jsonl
+
+    echo "=====RESULTS_BEGIN====="
+    cat gpu_packing_${model}_${dataset}.jsonl
+    echo "=====RESULTS_END====="
+    echo "=====GPUINFO_BEGIN====="
+    cat gpu_info.txt
+    echo "=====GPUINFO_END====="
     """
 }
 
@@ -194,6 +209,9 @@ process COLLECT {
     """
     cat part_*.jsonl > ${name}.jsonl
     wc -l ${name}.jsonl
+    echo "=====COLLECTED_BEGIN====="
+    cat ${name}.jsonl
+    echo "=====COLLECTED_END====="
     """
 }
 
