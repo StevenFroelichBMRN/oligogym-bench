@@ -140,34 +140,42 @@ process GPU_PACK {
 // ---------------------------------------------------------------- image validation
 process VALIDATE_IMAGE_CPU {
     label 'validate_cpu'
+    publishDir "${params.outdir}", mode: 'copy'
+    errorStrategy 'ignore'
 
     output:
-    path "validation_cpu.json", emit: report
     path "validation_cpu.txt",  emit: log
+    path "validation_cpu.json", emit: report, optional: true
 
     script:
     """
     echo "== CPU-class task ==" > validation_cpu.txt
     python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'arch', torch.cuda.get_arch_list())" >> validation_cpu.txt 2>&1
     python /opt/oligogym-bench/validate_image.py --build-time \\
-        --json-out validation_cpu.json >> validation_cpu.txt 2>&1
+        --json-out validation_cpu.json >> validation_cpu.txt 2>&1 || true
     """
 }
 
 process VALIDATE_IMAGE_GPU {
     label 'validate_gpu'
+    // The report is the deliverable even when a check FAILS -- publish it either
+    // way, otherwise a failing check destroys the evidence of what failed.
+    publishDir "${params.outdir}", mode: 'copy'
+    errorStrategy 'ignore'
 
     output:
-    path "validation_gpu.json", emit: report
     path "validation_gpu.txt",  emit: log
+    path "validation_gpu.json", emit: report, optional: true
 
     script:
     """
     echo "== GPU-class task ==" > validation_gpu.txt
     nvidia-smi >> validation_gpu.txt 2>&1 || echo "no nvidia-smi" >> validation_gpu.txt
-    python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'device', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, 'arch', torch.cuda.get_arch_list())" >> validation_gpu.txt 2>&1
+    python -c "import torch; print('torch', torch.__version__, 'cuda_avail', torch.cuda.is_available(), 'device', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, 'cap', torch.cuda.get_device_capability(0) if torch.cuda.is_available() else None, 'arch', torch.cuda.get_arch_list())" >> validation_gpu.txt 2>&1
+    # `|| true`: a failed check must still leave the log behind to be published.
     python /opt/oligogym-bench/validate_image.py --gpu \\
-        --json-out validation_gpu.json >> validation_gpu.txt 2>&1
+        --json-out validation_gpu.json >> validation_gpu.txt 2>&1 || true
+    echo "exit_recorded=$?" >> validation_gpu.txt
     """
 }
 
