@@ -190,7 +190,10 @@ process VALIDATE_IMAGE_GPU {
     # `|| true`: a failed check must still leave the log behind to be published.
     python /opt/oligogym-bench/validate_image.py --gpu \\
         --json-out validation_gpu.json >> validation_gpu.txt 2>&1 || true
-    echo "exit_recorded=$?" >> validation_gpu.txt
+    echo "== validation command finished (see PASS/FAIL lines above) ==" >> validation_gpu.txt
+    echo "=====RESULTS_BEGIN====="
+    cat validation_gpu.txt
+    echo "=====RESULTS_END====="
     """
 }
 
