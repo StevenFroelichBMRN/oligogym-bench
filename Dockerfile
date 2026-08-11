@@ -81,10 +81,13 @@ RUN pip install --no-cache-dir --no-deps \
 #    RNAFMEmbeddings silently falls back to a 6-dim _get_simple_features
 #    representation with NO error. The sha256 check makes that impossible.
 # ---------------------------------------------------------------------------
-RUN mkdir -p ${TORCH_HOME}/checkpoints \
-    && curl -fsSL -o ${TORCH_HOME}/checkpoints/RNA-FM_pretrained.pth \
+#    PATH TRAP (verified empirically, not assumed): torch.hub.get_dir() is
+#    $TORCH_HOME/**hub**, not $TORCH_HOME. The checkpoint must land in
+#    $TORCH_HOME/hub/checkpoints/ or `fm` re-downloads from the dead CUHK URL.
+RUN mkdir -p ${TORCH_HOME}/hub/checkpoints \
+    && curl -fsSL -o ${TORCH_HOME}/hub/checkpoints/RNA-FM_pretrained.pth \
         https://huggingface.co/cuhkaih/rnafm/resolve/main/RNA-FM_pretrained.pth \
-    && echo "${RNAFM_SHA256}  ${TORCH_HOME}/checkpoints/RNA-FM_pretrained.pth" \
+    && echo "${RNAFM_SHA256}  ${TORCH_HOME}/hub/checkpoints/RNA-FM_pretrained.pth" \
         | sha256sum -c - \
     && chmod -R a+rX ${TORCH_HOME}
 

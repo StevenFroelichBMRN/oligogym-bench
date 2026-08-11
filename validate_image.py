@@ -111,11 +111,45 @@ def c_pyg_no_companions():
 
 
 def c_rnafm_checkpoint():
-    """RNA-FM must load real pretrained weights, not the silent 6-dim fallback."""
+    """RNA-FM must load real pretrained weights, not the silent 6-dim fallback.
+
+    Also asserts the checkpoint is served from the local torch-hub cache: any
+    attempt to reach the network here means the baked-in file is at the wrong
+    path, and the canonical CUHK URL returns 403 for every request, so the run
+    would fall back to 6-dim _get_simple_features with NO error.
+    """
+    import os
     import fm
     import torch
 
-    model, alphabet = fm.pretrained.rna_fm_t12()
+    ckpt = os.path.join(torch.hub.get_dir(), "checkpoints",
+                        "RNA-FM_pretrained.pth")
+    if not os.path.exists(ckpt):
+        raise AssertionError(
+            f"checkpoint absent from the torch-hub cache at {ckpt} "
+            f"(TORCH_HOME={os.environ.get('TORCH_HOME')}); note "
+            "torch.hub.get_dir() is $TORCH_HOME/hub, not $TORCH_HOME"
+        )
+    size_mb = os.path.getsize(ckpt) / 1e6
+    if size_mb < 1000:
+        raise AssertionError(f"checkpoint is only {size_mb:.1f} MB, expected ~1194 MB")
+
+    # Forbid any network fetch during load.
+    import urllib.request
+
+    def _no_net(*a, **k):
+        raise AssertionError(
+            "RNA-FM attempted a network download -- the baked checkpoint was "
+            "not found in the hub cache"
+        )
+
+    orig_url, orig_hub = urllib.request.urlopen, torch.hub.download_url_to_file
+    urllib.request.urlopen = _no_net
+    torch.hub.download_url_to_file = _no_net
+    try:
+        model, alphabet = fm.pretrained.rna_fm_t12()
+    finally:
+        urllib.request.urlopen, torch.hub.download_url_to_file = orig_url, orig_hub
     n = sum(p.numel() for p in model.parameters())
     if n < 90_000_000:
         raise AssertionError(f"RNA-FM has only {n} params; expected ~99.5M")
