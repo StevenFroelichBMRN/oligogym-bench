@@ -1,0 +1,8 @@
+dataset: 'siRNA1'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'LinearModel'
+model_args:
+  type: 'ridge'
+cross_validation: 'nucleobase'

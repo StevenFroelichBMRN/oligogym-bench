@@ -1,0 +1,9 @@
+dataset: 'sherwood'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'RandomForestModel'
+model_args:
+  max_depth: 30
+  n_estimators: 100
+cross_validation: 'nucleobase'

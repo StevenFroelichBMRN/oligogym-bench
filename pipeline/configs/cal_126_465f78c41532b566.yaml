@@ -1,0 +1,10 @@
+dataset: 'sherwood'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1, 2, 3]
+  modification_abundance: true
+model: 'MLP'
+model_args:
+  dropout: 0
+  hidden_dims: [128, 128]
+cross_validation: 'random'

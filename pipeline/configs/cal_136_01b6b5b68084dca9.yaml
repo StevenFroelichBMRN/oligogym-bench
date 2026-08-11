@@ -1,0 +1,11 @@
+dataset: 'sherwood'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'CNN'
+model_args:
+  depth: 1
+  hidden_dim: 32
+  kernel_size: 7
+  pooling_operation: 'max'
+cross_validation: 'random'

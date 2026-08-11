@@ -67,11 +67,13 @@ class SysSampler(threading.Thread):
         self.cpu = []
         self.gpu_util = []
         self.gpu_mem = []
-        self._stop = threading.Event()
+        # not `_stop`: threading.Thread has a private _stop() method and
+        # shadowing it breaks Thread teardown.
+        self._halt = threading.Event()
 
     def run(self):
         psutil.cpu_percent(None)
-        while not self._stop.is_set():
+        while not self._halt.is_set():
             self.cpu.append(psutil.cpu_percent(None))
             try:
                 out = subprocess.run(
@@ -85,10 +87,10 @@ class SysSampler(threading.Thread):
                     self.gpu_mem.append(float(mem))
             except Exception:
                 pass
-            self._stop.wait(self.interval)
+            self._halt.wait(self.interval)
 
     def stop(self):
-        self._stop.set()
+        self._halt.set()
         self.join(timeout=3)
 
         def stats(v):

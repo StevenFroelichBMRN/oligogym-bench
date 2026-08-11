@@ -1,0 +1,9 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'HELMGraph'
+featurizer_args: {}
+model: 'GNN'
+model_args:
+  hidden_dim: 64
+  num_layers: 2
+  pooling_operation: 'max'
+cross_validation: 'nucleobase'

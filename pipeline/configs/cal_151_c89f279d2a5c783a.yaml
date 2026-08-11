@@ -1,0 +1,12 @@
+dataset: 'sherwood'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'Transformer'
+model_args:
+  d_model: 128
+  dim_feedforward: 64
+  dropout: 0
+  nhead: 4
+  num_layers: 2
+cross_validation: 'nucleobase'

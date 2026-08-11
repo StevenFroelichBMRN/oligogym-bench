@@ -1,0 +1,9 @@
+dataset: 'sherwood'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1]
+  modification_abundance: true
+model: 'NearestNeighborsModel'
+model_args:
+  n_neighbors: 5
+cross_validation: 'nucleobase'

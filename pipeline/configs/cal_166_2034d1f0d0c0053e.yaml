@@ -1,0 +1,9 @@
+dataset: 'siRNA1'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1, 2]
+  modification_abundance: true
+model: 'NearestNeighborsModel'
+model_args:
+  n_neighbors: 15
+cross_validation: 'random'

@@ -1,0 +1,12 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'Transformer'
+model_args:
+  d_model: 128
+  dim_feedforward: 64
+  dropout: 0.25
+  nhead: 4
+  num_layers: 1
+cross_validation: 'nucleobase'

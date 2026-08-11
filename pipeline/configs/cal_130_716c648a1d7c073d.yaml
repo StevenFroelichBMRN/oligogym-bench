@@ -1,0 +1,10 @@
+dataset: 'sherwood'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1]
+  modification_abundance: false
+model: 'RandomForestModel'
+model_args:
+  max_depth: 20
+  n_estimators: 100
+cross_validation: 'nucleobase'

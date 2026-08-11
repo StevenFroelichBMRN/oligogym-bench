@@ -1,0 +1,12 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'Transformer'
+model_args:
+  d_model: 64
+  dim_feedforward: 64
+  dropout: 0
+  nhead: 4
+  num_layers: 1
+cross_validation: 'random'

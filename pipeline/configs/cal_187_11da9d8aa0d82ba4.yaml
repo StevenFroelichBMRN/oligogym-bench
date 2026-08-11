@@ -1,0 +1,9 @@
+dataset: 'siRNA1'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'RandomForestModel'
+model_args:
+  max_depth: 30
+  n_estimators: 1000
+cross_validation: 'random'

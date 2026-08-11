@@ -47,31 +47,47 @@ from oligogym_patch import seed_everything  # noqa: E402
 
 # ---------------------------------------------------------------- resource probes
 class RSSSampler(threading.Thread):
-    """Sample this process's RSS (plus children) until stopped."""
+    """Sample this process's RSS (plus children) until stopped.
+
+    NOTE: the stop flag must NOT be called `_stop` -- threading.Thread has a
+    private `_stop()` method and shadowing it with an Event breaks Thread's own
+    teardown with "TypeError: 'Event' object is not callable".
+    """
 
     def __init__(self, interval=0.05):
         super().__init__(daemon=True)
         self.interval = interval
         self.peak = 0
-        self._stop = threading.Event()
+        self._halt = threading.Event()
         self._proc = psutil.Process()
+        # children() needs elevated privileges on some platforms (macOS);
+        # probe once so the sample loop does not pay for a failing call.
+        try:
+            self._proc.children(recursive=True)
+            self._can_children = True
+        except Exception:
+            self._can_children = False
 
     def run(self):
-        while not self._stop.is_set():
+        while not self._halt.is_set():
             try:
                 rss = self._proc.memory_info().rss
-                for c in self._proc.children(recursive=True):
+                if self._can_children:
                     try:
-                        rss += c.memory_info().rss
-                    except (psutil.NoSuchProcess, psutil.AccessDenied):
-                        pass
+                        for c in self._proc.children(recursive=True):
+                            try:
+                                rss += c.memory_info().rss
+                            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                                pass
+                    except Exception:
+                        self._can_children = False
                 self.peak = max(self.peak, rss)
             except psutil.NoSuchProcess:
                 break
-            self._stop.wait(self.interval)
+            self._halt.wait(self.interval)
 
     def stop(self):
-        self._stop.set()
+        self._halt.set()
         self.join(timeout=2)
         return self.peak / 1e6
 

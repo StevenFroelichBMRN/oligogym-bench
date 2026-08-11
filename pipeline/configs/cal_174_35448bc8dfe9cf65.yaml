@@ -1,0 +1,11 @@
+dataset: 'siRNA1'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'CNN'
+model_args:
+  depth: 1
+  hidden_dim: 64
+  kernel_size: 3
+  pooling_operation: 'avg'
+cross_validation: 'random'

@@ -1,0 +1,9 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'HELMGraph'
+featurizer_args: {}
+model: 'GNN'
+model_args:
+  hidden_dim: 64
+  num_layers: 1
+  pooling_operation: 'avg'
+cross_validation: 'nucleobase'

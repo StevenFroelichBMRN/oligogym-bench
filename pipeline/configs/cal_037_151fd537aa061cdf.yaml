@@ -1,0 +1,7 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'RNAFMEmbeddings'
+featurizer_args: {}
+model: 'LinearModel'
+model_args:
+  type: 'ridge'
+cross_validation: 'random'

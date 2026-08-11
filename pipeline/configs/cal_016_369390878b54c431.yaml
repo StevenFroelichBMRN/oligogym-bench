@@ -1,0 +1,11 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'CNN'
+model_args:
+  depth: 1
+  hidden_dim: 32
+  kernel_size: 7
+  pooling_operation: 'avg'
+cross_validation: 'random'

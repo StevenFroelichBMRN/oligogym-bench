@@ -1,0 +1,9 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'RandomForestModel'
+model_args:
+  max_depth: 10
+  n_estimators: 500
+cross_validation: 'nucleobase'

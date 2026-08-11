@@ -1,0 +1,8 @@
+dataset: 'cytotox_lna'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'NearestNeighborsModel'
+model_args:
+  n_neighbors: 15
+cross_validation: 'random'

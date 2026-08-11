@@ -1,0 +1,198 @@
+name,config_hash,compute_class,model,featurizer,dataset,dataset_rows,tier,cost_key
+cal_000_370f5b1ce134b38d,370f5b1ce134b38d,gpu,GNN,HELMGraph,asoptimizer_cleaned,32602.0,L,32
+cal_001_f91d0ffe79ffa2eb,f91d0ffe79ffa2eb,gpu,GNN,HELMGraph,asoptimizer_cleaned,32602.0,L,64
+cal_002_4945d707698d0559,4945d707698d0559,cpu,LinearModel,KMersCounts,asoptimizer_cleaned,32602.0,L,"""ridge"""
+cal_003_363b7ee420e2b799,363b7ee420e2b799,cpu,LinearModel,KMersCounts,asoptimizer_cleaned,32602.0,L,"""standard"""
+cal_004_067525c065007138,067525c065007138,gpu,MLP,KMersCounts,asoptimizer_cleaned,32602.0,L,[64]
+cal_005_95e7ef8174a0a2a3,95e7ef8174a0a2a3,gpu,MLP,KMersCounts,asoptimizer_cleaned,32602.0,L,"[64, 64]"
+cal_006_8ae5ac8cb127da93,8ae5ac8cb127da93,gpu,MLP,KMersCounts,asoptimizer_cleaned,32602.0,L,"[128, 128]"
+cal_007_8f672c13cf88a8e7,8f672c13cf88a8e7,cpu,NearestNeighborsModel,KMersCounts,asoptimizer_cleaned,32602.0,L,5
+cal_008_4bc144091dda04dc,4bc144091dda04dc,cpu,NearestNeighborsModel,KMersCounts,asoptimizer_cleaned,32602.0,L,10
+cal_009_98a9f208bcdd1461,98a9f208bcdd1461,cpu,NearestNeighborsModel,KMersCounts,asoptimizer_cleaned,32602.0,L,15
+cal_010_579a4cd583777e01,579a4cd583777e01,cpu,RandomForestModel,KMersCounts,asoptimizer_cleaned,32602.0,L,100
+cal_011_596d5ab199c9d15f,596d5ab199c9d15f,cpu,RandomForestModel,KMersCounts,asoptimizer_cleaned,32602.0,L,500
+cal_012_3cadf9e883fcac31,3cadf9e883fcac31,cpu,RandomForestModel,KMersCounts,asoptimizer_cleaned,32602.0,L,1000
+cal_013_cef793dd9f6b8a04,cef793dd9f6b8a04,cpu,XGBoostModel,KMersCounts,asoptimizer_cleaned,32602.0,L,100
+cal_014_9c326304571d7eab,9c326304571d7eab,cpu,XGBoostModel,KMersCounts,asoptimizer_cleaned,32602.0,L,500
+cal_015_1d0b968c92133e0c,1d0b968c92133e0c,cpu,XGBoostModel,KMersCounts,asoptimizer_cleaned,32602.0,L,1000
+cal_016_369390878b54c431,369390878b54c431,gpu,CNN,OneHotEncoder,asoptimizer_cleaned,32602.0,L,32
+cal_017_8b95d60620a10ddf,8b95d60620a10ddf,gpu,CNN,OneHotEncoder,asoptimizer_cleaned,32602.0,L,64
+cal_018_d59d37c0cb9ddb05,d59d37c0cb9ddb05,gpu,GRU,OneHotEncoder,asoptimizer_cleaned,32602.0,L,32
+cal_019_b876ed3b111ed41a,b876ed3b111ed41a,gpu,GRU,OneHotEncoder,asoptimizer_cleaned,32602.0,L,64
+cal_020_54c5786d05230142,54c5786d05230142,cpu,LinearModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,"""ridge"""
+cal_021_7447ee02d0c53a77,7447ee02d0c53a77,cpu,LinearModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,"""standard"""
+cal_022_12152390e41d10f6,12152390e41d10f6,gpu,MLP,OneHotEncoder,asoptimizer_cleaned,32602.0,L,[64]
+cal_023_dc9d432e53db2ff6,dc9d432e53db2ff6,gpu,MLP,OneHotEncoder,asoptimizer_cleaned,32602.0,L,"[64, 64]"
+cal_024_a6cfc04bdfde0c77,a6cfc04bdfde0c77,gpu,MLP,OneHotEncoder,asoptimizer_cleaned,32602.0,L,"[128, 128]"
+cal_025_5f2dab929053b00a,5f2dab929053b00a,cpu,NearestNeighborsModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,5
+cal_026_cb507bf2a4feb6d1,cb507bf2a4feb6d1,cpu,NearestNeighborsModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,10
+cal_027_33395754bc3608cb,33395754bc3608cb,cpu,NearestNeighborsModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,15
+cal_028_a861c9b18ef2291c,a861c9b18ef2291c,cpu,RandomForestModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,100
+cal_029_af70f000ade280c9,af70f000ade280c9,cpu,RandomForestModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,500
+cal_030_89d0e756c707d550,89d0e756c707d550,cpu,RandomForestModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,1000
+cal_031_8ec0fed6203897eb,8ec0fed6203897eb,gpu,Transformer,OneHotEncoder,asoptimizer_cleaned,32602.0,L,64
+cal_032_15bbd48d0ce63772,15bbd48d0ce63772,gpu,Transformer,OneHotEncoder,asoptimizer_cleaned,32602.0,L,128
+cal_033_a11eb24cfad9155b,a11eb24cfad9155b,cpu,XGBoostModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,100
+cal_034_a025df22863b78df,a025df22863b78df,cpu,XGBoostModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,500
+cal_035_a4728e527ff08806,a4728e527ff08806,cpu,XGBoostModel,OneHotEncoder,asoptimizer_cleaned,32602.0,L,1000
+cal_036_251ea82146428a2b,251ea82146428a2b,gpu,CNN,RNAFMEmbeddings,asoptimizer_cleaned,32602.0,L,64
+cal_037_151fd537aa061cdf,151fd537aa061cdf,cpu,LinearModel,RNAFMEmbeddings,asoptimizer_cleaned,32602.0,L,"""ridge"""
+cal_038_362ee33ce8e2fa89,362ee33ce8e2fa89,gpu,Transformer,RNAFMEmbeddings,asoptimizer_cleaned,32602.0,L,64
+cal_039_6406cc04aba7c2fd,6406cc04aba7c2fd,gpu,Transformer,RNAFMEmbeddings,asoptimizer_cleaned,32602.0,L,128
+cal_040_5ad8900817fa6d52,5ad8900817fa6d52,gpu,GNN,HELMGraph,cytotox_lna,768.0,S,32
+cal_041_2367b4f64e67ae3a,2367b4f64e67ae3a,gpu,GNN,HELMGraph,cytotox_lna,768.0,S,64
+cal_042_6f9ce3b14f6aad23,6f9ce3b14f6aad23,cpu,LinearModel,KMersCounts,cytotox_lna,768.0,S,"""ridge"""
+cal_043_33c169cb3c3c46a1,33c169cb3c3c46a1,cpu,LinearModel,KMersCounts,cytotox_lna,768.0,S,"""standard"""
+cal_044_f4db0fa8c3a2baae,f4db0fa8c3a2baae,gpu,MLP,KMersCounts,cytotox_lna,768.0,S,[64]
+cal_045_5942e6ba615a906c,5942e6ba615a906c,gpu,MLP,KMersCounts,cytotox_lna,768.0,S,"[64, 64]"
+cal_046_59b8e0ec1ecdda6c,59b8e0ec1ecdda6c,gpu,MLP,KMersCounts,cytotox_lna,768.0,S,"[128, 128]"
+cal_047_efb2ed552796cf25,efb2ed552796cf25,cpu,NearestNeighborsModel,KMersCounts,cytotox_lna,768.0,S,5
+cal_048_cd7ffc2789b6750d,cd7ffc2789b6750d,cpu,NearestNeighborsModel,KMersCounts,cytotox_lna,768.0,S,10
+cal_049_8c26fd7135c4609c,8c26fd7135c4609c,cpu,NearestNeighborsModel,KMersCounts,cytotox_lna,768.0,S,15
+cal_050_53f920880d99629a,53f920880d99629a,cpu,RandomForestModel,KMersCounts,cytotox_lna,768.0,S,100
+cal_051_ea04ff42fe7185fc,ea04ff42fe7185fc,cpu,RandomForestModel,KMersCounts,cytotox_lna,768.0,S,500
+cal_052_2fa4addc7c8902cc,2fa4addc7c8902cc,cpu,RandomForestModel,KMersCounts,cytotox_lna,768.0,S,1000
+cal_053_5e200e6d26e7fc68,5e200e6d26e7fc68,cpu,XGBoostModel,KMersCounts,cytotox_lna,768.0,S,100
+cal_054_b6f5ab7785d1b4d0,b6f5ab7785d1b4d0,cpu,XGBoostModel,KMersCounts,cytotox_lna,768.0,S,500
+cal_055_afcd65db104194f3,afcd65db104194f3,cpu,XGBoostModel,KMersCounts,cytotox_lna,768.0,S,1000
+cal_056_504785b61741fb0b,504785b61741fb0b,gpu,CNN,OneHotEncoder,cytotox_lna,768.0,S,32
+cal_057_8c6e85762c3f8c59,8c6e85762c3f8c59,gpu,CNN,OneHotEncoder,cytotox_lna,768.0,S,64
+cal_058_4a4f61a92f587784,4a4f61a92f587784,gpu,GRU,OneHotEncoder,cytotox_lna,768.0,S,32
+cal_059_7ee6097f85b53f0a,7ee6097f85b53f0a,gpu,GRU,OneHotEncoder,cytotox_lna,768.0,S,64
+cal_060_f4c3dac26c8cbea9,f4c3dac26c8cbea9,cpu,LinearModel,OneHotEncoder,cytotox_lna,768.0,S,"""ridge"""
+cal_061_b32d23b1008b06fd,b32d23b1008b06fd,cpu,LinearModel,OneHotEncoder,cytotox_lna,768.0,S,"""standard"""
+cal_062_a8c2570cd679ff08,a8c2570cd679ff08,gpu,MLP,OneHotEncoder,cytotox_lna,768.0,S,[64]
+cal_063_09b1ad5794c7be8d,09b1ad5794c7be8d,gpu,MLP,OneHotEncoder,cytotox_lna,768.0,S,"[64, 64]"
+cal_064_d6fa83de4c20f957,d6fa83de4c20f957,gpu,MLP,OneHotEncoder,cytotox_lna,768.0,S,"[128, 128]"
+cal_065_f202cb19f4c61a1f,f202cb19f4c61a1f,cpu,NearestNeighborsModel,OneHotEncoder,cytotox_lna,768.0,S,5
+cal_066_983eefbaef9f5649,983eefbaef9f5649,cpu,NearestNeighborsModel,OneHotEncoder,cytotox_lna,768.0,S,10
+cal_067_43fbaa4296bc85d4,43fbaa4296bc85d4,cpu,NearestNeighborsModel,OneHotEncoder,cytotox_lna,768.0,S,15
+cal_068_7e067350cb1add53,7e067350cb1add53,cpu,RandomForestModel,OneHotEncoder,cytotox_lna,768.0,S,100
+cal_069_372e08a3fb0165d7,372e08a3fb0165d7,cpu,RandomForestModel,OneHotEncoder,cytotox_lna,768.0,S,500
+cal_070_55212ff0c7fce506,55212ff0c7fce506,cpu,RandomForestModel,OneHotEncoder,cytotox_lna,768.0,S,1000
+cal_071_830100a95d18a195,830100a95d18a195,gpu,Transformer,OneHotEncoder,cytotox_lna,768.0,S,64
+cal_072_d0f9020ab2ec341a,d0f9020ab2ec341a,gpu,Transformer,OneHotEncoder,cytotox_lna,768.0,S,128
+cal_073_8fae51464720ff96,8fae51464720ff96,cpu,XGBoostModel,OneHotEncoder,cytotox_lna,768.0,S,100
+cal_074_d585d1afae1436ce,d585d1afae1436ce,cpu,XGBoostModel,OneHotEncoder,cytotox_lna,768.0,S,500
+cal_075_433806316c817a2e,433806316c817a2e,cpu,XGBoostModel,OneHotEncoder,cytotox_lna,768.0,S,1000
+cal_076_944bc589f95a72f9,944bc589f95a72f9,gpu,CNN,RNAFMEmbeddings,cytotox_lna,768.0,S,64
+cal_077_aade85bb613f7a5c,aade85bb613f7a5c,cpu,LinearModel,RNAFMEmbeddings,cytotox_lna,768.0,S,"""ridge"""
+cal_078_955d959bc8e7606a,955d959bc8e7606a,gpu,Transformer,RNAFMEmbeddings,cytotox_lna,768.0,S,64
+cal_079_0ff1426aa21af4f8,0ff1426aa21af4f8,gpu,Transformer,RNAFMEmbeddings,cytotox_lna,768.0,S,128
+cal_080_a220f10edb5bef70,a220f10edb5bef70,gpu,GNN,HELMGraph,immune_modulation_TLR7,192.0,S,32
+cal_081_f6f35305d3738e10,f6f35305d3738e10,gpu,GNN,HELMGraph,immune_modulation_TLR7,192.0,S,64
+cal_082_7488c2d07c1ac285,7488c2d07c1ac285,cpu,LinearModel,KMersCounts,immune_modulation_TLR7,192.0,S,"""ridge"""
+cal_083_5575cb3f497bd8ad,5575cb3f497bd8ad,cpu,LinearModel,KMersCounts,immune_modulation_TLR7,192.0,S,"""standard"""
+cal_084_720756d4e437ee47,720756d4e437ee47,gpu,MLP,KMersCounts,immune_modulation_TLR7,192.0,S,[64]
+cal_085_9afeb4f6c5f4fb0c,9afeb4f6c5f4fb0c,gpu,MLP,KMersCounts,immune_modulation_TLR7,192.0,S,"[64, 64]"
+cal_086_b28396536fb808ff,b28396536fb808ff,gpu,MLP,KMersCounts,immune_modulation_TLR7,192.0,S,"[128, 128]"
+cal_087_9cd79e73351308c9,9cd79e73351308c9,cpu,NearestNeighborsModel,KMersCounts,immune_modulation_TLR7,192.0,S,5
+cal_088_3d0fc5bd973139f0,3d0fc5bd973139f0,cpu,NearestNeighborsModel,KMersCounts,immune_modulation_TLR7,192.0,S,10
+cal_089_58e7fdc7b9635921,58e7fdc7b9635921,cpu,NearestNeighborsModel,KMersCounts,immune_modulation_TLR7,192.0,S,15
+cal_090_d5639b6783a6e1ba,d5639b6783a6e1ba,cpu,RandomForestModel,KMersCounts,immune_modulation_TLR7,192.0,S,100
+cal_091_9ae0f1213a8ca919,9ae0f1213a8ca919,cpu,RandomForestModel,KMersCounts,immune_modulation_TLR7,192.0,S,500
+cal_092_be52155480b7a036,be52155480b7a036,cpu,RandomForestModel,KMersCounts,immune_modulation_TLR7,192.0,S,1000
+cal_093_381083f415b476f1,381083f415b476f1,cpu,XGBoostModel,KMersCounts,immune_modulation_TLR7,192.0,S,100
+cal_094_687b91e7dec52a97,687b91e7dec52a97,cpu,XGBoostModel,KMersCounts,immune_modulation_TLR7,192.0,S,500
+cal_095_e7bd0ef258256fae,e7bd0ef258256fae,cpu,XGBoostModel,KMersCounts,immune_modulation_TLR7,192.0,S,1000
+cal_096_372424c465c504e0,372424c465c504e0,gpu,CNN,OneHotEncoder,immune_modulation_TLR7,192.0,S,32
+cal_097_6e27d6df6c739898,6e27d6df6c739898,gpu,CNN,OneHotEncoder,immune_modulation_TLR7,192.0,S,64
+cal_098_d1394d72fdd5e5a7,d1394d72fdd5e5a7,gpu,GRU,OneHotEncoder,immune_modulation_TLR7,192.0,S,32
+cal_099_0002593fea56662a,0002593fea56662a,gpu,GRU,OneHotEncoder,immune_modulation_TLR7,192.0,S,64
+cal_100_1d0d403bdd02047c,1d0d403bdd02047c,cpu,LinearModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,"""ridge"""
+cal_101_2fbe01a0fde10ced,2fbe01a0fde10ced,cpu,LinearModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,"""standard"""
+cal_102_a9bb5fb41b3ff372,a9bb5fb41b3ff372,gpu,MLP,OneHotEncoder,immune_modulation_TLR7,192.0,S,[64]
+cal_103_3ebf8425117b11d6,3ebf8425117b11d6,gpu,MLP,OneHotEncoder,immune_modulation_TLR7,192.0,S,"[64, 64]"
+cal_104_a2b2379645cc533f,a2b2379645cc533f,gpu,MLP,OneHotEncoder,immune_modulation_TLR7,192.0,S,"[128, 128]"
+cal_105_d8222af0c29fd8e9,d8222af0c29fd8e9,cpu,NearestNeighborsModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,5
+cal_106_db33f5a259dbf0d5,db33f5a259dbf0d5,cpu,NearestNeighborsModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,10
+cal_107_9cb38faefa77b216,9cb38faefa77b216,cpu,NearestNeighborsModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,15
+cal_108_6121b9b653f5e6f2,6121b9b653f5e6f2,cpu,RandomForestModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,100
+cal_109_aebff74a9c00abbb,aebff74a9c00abbb,cpu,RandomForestModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,500
+cal_110_bbe8e365496f56fa,bbe8e365496f56fa,cpu,RandomForestModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,1000
+cal_111_38922b0e5ed2421c,38922b0e5ed2421c,gpu,Transformer,OneHotEncoder,immune_modulation_TLR7,192.0,S,64
+cal_112_acde8b6352b37d45,acde8b6352b37d45,gpu,Transformer,OneHotEncoder,immune_modulation_TLR7,192.0,S,128
+cal_113_c7c0ef1741ecbed9,c7c0ef1741ecbed9,cpu,XGBoostModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,100
+cal_114_8dbd6da567397177,8dbd6da567397177,cpu,XGBoostModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,500
+cal_115_07543f19b6f6fa34,07543f19b6f6fa34,cpu,XGBoostModel,OneHotEncoder,immune_modulation_TLR7,192.0,S,1000
+cal_116_e9037b3173813001,e9037b3173813001,gpu,CNN,RNAFMEmbeddings,immune_modulation_TLR7,192.0,S,64
+cal_117_24b87ede6837715f,24b87ede6837715f,cpu,LinearModel,RNAFMEmbeddings,immune_modulation_TLR7,192.0,S,"""ridge"""
+cal_118_b8a16e915c75c776,b8a16e915c75c776,gpu,Transformer,RNAFMEmbeddings,immune_modulation_TLR7,192.0,S,64
+cal_119_5fc13411497cf60f,5fc13411497cf60f,gpu,Transformer,RNAFMEmbeddings,immune_modulation_TLR7,192.0,S,128
+cal_120_8f344b216d707e39,8f344b216d707e39,gpu,GNN,HELMGraph,sherwood,291551.0,XL,32
+cal_121_aa4ae7c4efa22ba5,aa4ae7c4efa22ba5,gpu,GNN,HELMGraph,sherwood,291551.0,XL,64
+cal_122_0f6078d41174cd0b,0f6078d41174cd0b,cpu,LinearModel,KMersCounts,sherwood,291551.0,XL,"""ridge"""
+cal_123_11b4ca4c44350a29,11b4ca4c44350a29,cpu,LinearModel,KMersCounts,sherwood,291551.0,XL,"""standard"""
+cal_124_62f02f2feea3b308,62f02f2feea3b308,gpu,MLP,KMersCounts,sherwood,291551.0,XL,[64]
+cal_125_edb4a6a9e7ee68f8,edb4a6a9e7ee68f8,gpu,MLP,KMersCounts,sherwood,291551.0,XL,"[64, 64]"
+cal_126_465f78c41532b566,465f78c41532b566,gpu,MLP,KMersCounts,sherwood,291551.0,XL,"[128, 128]"
+cal_127_08412c5cceb2df10,08412c5cceb2df10,cpu,NearestNeighborsModel,KMersCounts,sherwood,291551.0,XL,5
+cal_128_b5bb0aee75e8f23f,b5bb0aee75e8f23f,cpu,NearestNeighborsModel,KMersCounts,sherwood,291551.0,XL,10
+cal_129_fee1e4f6177cb00b,fee1e4f6177cb00b,cpu,NearestNeighborsModel,KMersCounts,sherwood,291551.0,XL,15
+cal_130_716c648a1d7c073d,716c648a1d7c073d,cpu,RandomForestModel,KMersCounts,sherwood,291551.0,XL,100
+cal_131_94202ec775b68d35,94202ec775b68d35,cpu,RandomForestModel,KMersCounts,sherwood,291551.0,XL,500
+cal_132_529dc4ca8cabf215,529dc4ca8cabf215,cpu,RandomForestModel,KMersCounts,sherwood,291551.0,XL,1000
+cal_133_eae2c30392894b06,eae2c30392894b06,cpu,XGBoostModel,KMersCounts,sherwood,291551.0,XL,100
+cal_134_ae32a05dc3df48d4,ae32a05dc3df48d4,cpu,XGBoostModel,KMersCounts,sherwood,291551.0,XL,500
+cal_135_811950367cc695ad,811950367cc695ad,cpu,XGBoostModel,KMersCounts,sherwood,291551.0,XL,1000
+cal_136_01b6b5b68084dca9,01b6b5b68084dca9,gpu,CNN,OneHotEncoder,sherwood,291551.0,XL,32
+cal_137_b5b6a9fe2d31efdd,b5b6a9fe2d31efdd,gpu,CNN,OneHotEncoder,sherwood,291551.0,XL,64
+cal_138_9893666a28131ef6,9893666a28131ef6,gpu,GRU,OneHotEncoder,sherwood,291551.0,XL,32
+cal_139_9c512b0bf2a30a75,9c512b0bf2a30a75,cpu,LinearModel,OneHotEncoder,sherwood,291551.0,XL,"""ridge"""
+cal_140_7ca2f63a2e56a208,7ca2f63a2e56a208,cpu,LinearModel,OneHotEncoder,sherwood,291551.0,XL,"""standard"""
+cal_141_c5707bb057db7dda,c5707bb057db7dda,gpu,MLP,OneHotEncoder,sherwood,291551.0,XL,[64]
+cal_142_51bbfcd9cf634de6,51bbfcd9cf634de6,gpu,MLP,OneHotEncoder,sherwood,291551.0,XL,"[64, 64]"
+cal_143_3d670864059cd864,3d670864059cd864,gpu,MLP,OneHotEncoder,sherwood,291551.0,XL,"[128, 128]"
+cal_144_333f5a25134bc965,333f5a25134bc965,cpu,NearestNeighborsModel,OneHotEncoder,sherwood,291551.0,XL,5
+cal_145_1c90734f629e9566,1c90734f629e9566,cpu,NearestNeighborsModel,OneHotEncoder,sherwood,291551.0,XL,10
+cal_146_d018f0c1d557132b,d018f0c1d557132b,cpu,NearestNeighborsModel,OneHotEncoder,sherwood,291551.0,XL,15
+cal_147_bc536e23528d1b1f,bc536e23528d1b1f,cpu,RandomForestModel,OneHotEncoder,sherwood,291551.0,XL,100
+cal_148_6e424b3ad5037086,6e424b3ad5037086,cpu,RandomForestModel,OneHotEncoder,sherwood,291551.0,XL,500
+cal_149_a8814db509316635,a8814db509316635,cpu,RandomForestModel,OneHotEncoder,sherwood,291551.0,XL,1000
+cal_150_85f7ab9e78f78264,85f7ab9e78f78264,gpu,Transformer,OneHotEncoder,sherwood,291551.0,XL,64
+cal_151_c89f279d2a5c783a,c89f279d2a5c783a,gpu,Transformer,OneHotEncoder,sherwood,291551.0,XL,128
+cal_152_79ed820c0bac1917,79ed820c0bac1917,cpu,XGBoostModel,OneHotEncoder,sherwood,291551.0,XL,100
+cal_153_cae9d0cb780e6b41,cae9d0cb780e6b41,cpu,XGBoostModel,OneHotEncoder,sherwood,291551.0,XL,500
+cal_154_cf84fb2d356769d2,cf84fb2d356769d2,cpu,XGBoostModel,OneHotEncoder,sherwood,291551.0,XL,1000
+cal_155_2f5314b2bc40bccc,2f5314b2bc40bccc,gpu,CNN,RNAFMEmbeddings,sherwood,291551.0,XL,64
+cal_156_087980c4e15f0bf3,087980c4e15f0bf3,cpu,LinearModel,RNAFMEmbeddings,sherwood,291551.0,XL,"""ridge"""
+cal_157_cd5d935ef4d0c52a,cd5d935ef4d0c52a,gpu,GNN,HELMGraph,siRNA1,2431.0,M,32
+cal_158_a3a5b2a4af7e906c,a3a5b2a4af7e906c,gpu,GNN,HELMGraph,siRNA1,2431.0,M,64
+cal_159_9d6092e924ca73ea,9d6092e924ca73ea,cpu,LinearModel,KMersCounts,siRNA1,2431.0,M,"""ridge"""
+cal_160_dd958238e5933eba,dd958238e5933eba,cpu,LinearModel,KMersCounts,siRNA1,2431.0,M,"""standard"""
+cal_161_142fa7c1e61627be,142fa7c1e61627be,gpu,MLP,KMersCounts,siRNA1,2431.0,M,[64]
+cal_162_0839dc9851067637,0839dc9851067637,gpu,MLP,KMersCounts,siRNA1,2431.0,M,"[64, 64]"
+cal_163_b4b5e4a128dc216e,b4b5e4a128dc216e,gpu,MLP,KMersCounts,siRNA1,2431.0,M,"[128, 128]"
+cal_164_7a5a9a04544d5e3e,7a5a9a04544d5e3e,cpu,NearestNeighborsModel,KMersCounts,siRNA1,2431.0,M,5
+cal_165_70eb59426e078124,70eb59426e078124,cpu,NearestNeighborsModel,KMersCounts,siRNA1,2431.0,M,10
+cal_166_2034d1f0d0c0053e,2034d1f0d0c0053e,cpu,NearestNeighborsModel,KMersCounts,siRNA1,2431.0,M,15
+cal_167_b54ac7c937669a5b,b54ac7c937669a5b,cpu,RandomForestModel,KMersCounts,siRNA1,2431.0,M,100
+cal_168_6a9e42f47b2f05fa,6a9e42f47b2f05fa,cpu,RandomForestModel,KMersCounts,siRNA1,2431.0,M,500
+cal_169_d737b3bc02224bef,d737b3bc02224bef,cpu,RandomForestModel,KMersCounts,siRNA1,2431.0,M,1000
+cal_170_6f2fcff3ed4788bb,6f2fcff3ed4788bb,cpu,XGBoostModel,KMersCounts,siRNA1,2431.0,M,100
+cal_171_94c7bda42322035d,94c7bda42322035d,cpu,XGBoostModel,KMersCounts,siRNA1,2431.0,M,500
+cal_172_25b49e4c4f070b2a,25b49e4c4f070b2a,cpu,XGBoostModel,KMersCounts,siRNA1,2431.0,M,1000
+cal_173_e117e361837965ef,e117e361837965ef,gpu,CNN,OneHotEncoder,siRNA1,2431.0,M,32
+cal_174_35448bc8dfe9cf65,35448bc8dfe9cf65,gpu,CNN,OneHotEncoder,siRNA1,2431.0,M,64
+cal_175_2d9cdbd7ed339b84,2d9cdbd7ed339b84,gpu,GRU,OneHotEncoder,siRNA1,2431.0,M,32
+cal_176_b7f6b0f9ddca50f4,b7f6b0f9ddca50f4,gpu,GRU,OneHotEncoder,siRNA1,2431.0,M,64
+cal_177_ed448795d8a85dc4,ed448795d8a85dc4,cpu,LinearModel,OneHotEncoder,siRNA1,2431.0,M,"""ridge"""
+cal_178_8c33771d60a452ca,8c33771d60a452ca,cpu,LinearModel,OneHotEncoder,siRNA1,2431.0,M,"""standard"""
+cal_179_c5bd36e35602c47f,c5bd36e35602c47f,gpu,MLP,OneHotEncoder,siRNA1,2431.0,M,[64]
+cal_180_06621550294c465a,06621550294c465a,gpu,MLP,OneHotEncoder,siRNA1,2431.0,M,"[64, 64]"
+cal_181_1db17c1f06443929,1db17c1f06443929,gpu,MLP,OneHotEncoder,siRNA1,2431.0,M,"[128, 128]"
+cal_182_234a9c09ba69c1a8,234a9c09ba69c1a8,cpu,NearestNeighborsModel,OneHotEncoder,siRNA1,2431.0,M,5
+cal_183_822a6954bc4c4d09,822a6954bc4c4d09,cpu,NearestNeighborsModel,OneHotEncoder,siRNA1,2431.0,M,10
+cal_184_a50977897c998b08,a50977897c998b08,cpu,NearestNeighborsModel,OneHotEncoder,siRNA1,2431.0,M,15
+cal_185_9c2b4aeacb053eda,9c2b4aeacb053eda,cpu,RandomForestModel,OneHotEncoder,siRNA1,2431.0,M,100
+cal_186_88e7d726095b1e9e,88e7d726095b1e9e,cpu,RandomForestModel,OneHotEncoder,siRNA1,2431.0,M,500
+cal_187_11da9d8aa0d82ba4,11da9d8aa0d82ba4,cpu,RandomForestModel,OneHotEncoder,siRNA1,2431.0,M,1000
+cal_188_e63b0567fd8a4769,e63b0567fd8a4769,gpu,Transformer,OneHotEncoder,siRNA1,2431.0,M,64
+cal_189_692e3fe853e56b53,692e3fe853e56b53,gpu,Transformer,OneHotEncoder,siRNA1,2431.0,M,128
+cal_190_e8cf23254d944de4,e8cf23254d944de4,cpu,XGBoostModel,OneHotEncoder,siRNA1,2431.0,M,100
+cal_191_3140817c6de6c414,3140817c6de6c414,cpu,XGBoostModel,OneHotEncoder,siRNA1,2431.0,M,500
+cal_192_ac4f14a0be62aea5,ac4f14a0be62aea5,cpu,XGBoostModel,OneHotEncoder,siRNA1,2431.0,M,1000
+cal_193_4e2c2edc6a2adea3,4e2c2edc6a2adea3,gpu,CNN,RNAFMEmbeddings,siRNA1,2431.0,M,64
+cal_194_3344562fcc6dd91d,3344562fcc6dd91d,cpu,LinearModel,RNAFMEmbeddings,siRNA1,2431.0,M,"""ridge"""
+cal_195_bdc5739d818e394f,bdc5739d818e394f,gpu,Transformer,RNAFMEmbeddings,siRNA1,2431.0,M,64
+cal_196_a0fdca45a7d4d6d7,a0fdca45a7d4d6d7,gpu,Transformer,RNAFMEmbeddings,siRNA1,2431.0,M,128

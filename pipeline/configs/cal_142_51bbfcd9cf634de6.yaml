@@ -1,0 +1,9 @@
+dataset: 'sherwood'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'MLP'
+model_args:
+  dropout: 0.25
+  hidden_dims: [64, 64]
+cross_validation: 'random'

@@ -1,0 +1,12 @@
+dataset: 'sherwood'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'Transformer'
+model_args:
+  d_model: 64
+  dim_feedforward: 64
+  dropout: 0
+  nhead: 2
+  num_layers: 2
+cross_validation: 'nucleobase'

@@ -1,0 +1,9 @@
+dataset: 'siRNA1'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'MLP'
+model_args:
+  dropout: 0
+  hidden_dims: [64, 64]
+cross_validation: 'nucleobase'

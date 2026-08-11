@@ -1,0 +1,12 @@
+dataset: 'siRNA1'
+featurizer: 'RNAFMEmbeddings'
+featurizer_args:
+  flatten: false
+model: 'Transformer'
+model_args:
+  d_model: 64
+  dim_feedforward: 64
+  dropout: 0
+  nhead: 4
+  num_layers: 1
+cross_validation: 'random'

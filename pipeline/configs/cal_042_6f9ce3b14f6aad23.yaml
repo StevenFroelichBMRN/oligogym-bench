@@ -1,0 +1,9 @@
+dataset: 'cytotox_lna'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1, 2, 3]
+  modification_abundance: true
+model: 'LinearModel'
+model_args:
+  type: 'ridge'
+cross_validation: 'random'

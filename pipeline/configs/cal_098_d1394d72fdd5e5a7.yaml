@@ -1,0 +1,9 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'GRU'
+model_args:
+  hidden_dim: 32
+  num_layers: 2
+cross_validation: 'random'

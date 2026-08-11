@@ -1,0 +1,9 @@
+dataset: 'cytotox_lna'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'GRU'
+model_args:
+  hidden_dim: 64
+  num_layers: 2
+cross_validation: 'nucleobase'

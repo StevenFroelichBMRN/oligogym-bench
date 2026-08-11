@@ -1,0 +1,10 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1, 2]
+  modification_abundance: true
+model: 'XGBoostModel'
+model_args:
+  max_depth: 30
+  n_estimators: 1000
+cross_validation: 'nucleobase'

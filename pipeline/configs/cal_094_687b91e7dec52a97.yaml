@@ -1,0 +1,10 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1]
+  modification_abundance: false
+model: 'XGBoostModel'
+model_args:
+  max_depth: 20
+  n_estimators: 500
+cross_validation: 'random'

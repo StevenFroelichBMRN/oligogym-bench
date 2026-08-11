@@ -1,0 +1,8 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'NearestNeighborsModel'
+model_args:
+  n_neighbors: 5
+cross_validation: 'random'

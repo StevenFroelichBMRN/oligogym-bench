@@ -1,0 +1,9 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'GRU'
+model_args:
+  hidden_dim: 32
+  num_layers: 1
+cross_validation: 'random'

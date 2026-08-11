@@ -1,0 +1,9 @@
+dataset: 'siRNA1'
+featurizer: 'HELMGraph'
+featurizer_args: {}
+model: 'GNN'
+model_args:
+  hidden_dim: 32
+  num_layers: 1
+  pooling_operation: 'avg'
+cross_validation: 'random'

@@ -1,0 +1,11 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'CNN'
+model_args:
+  depth: 1
+  hidden_dim: 64
+  kernel_size: 5
+  pooling_operation: 'avg'
+cross_validation: 'random'

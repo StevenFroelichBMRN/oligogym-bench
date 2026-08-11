@@ -1,0 +1,10 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1, 2, 3]
+  modification_abundance: false
+model: 'MLP'
+model_args:
+  dropout: 0
+  hidden_dims: [128, 128]
+cross_validation: 'nucleobase'

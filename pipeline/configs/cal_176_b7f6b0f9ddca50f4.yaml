@@ -1,0 +1,9 @@
+dataset: 'siRNA1'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'GRU'
+model_args:
+  hidden_dim: 64
+  num_layers: 2
+cross_validation: 'random'

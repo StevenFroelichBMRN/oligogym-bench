@@ -1,0 +1,8 @@
+dataset: 'asoptimizer_cleaned'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base", "sugar", "phosphate"]
+model: 'NearestNeighborsModel'
+model_args:
+  n_neighbors: 10
+cross_validation: 'nucleobase'

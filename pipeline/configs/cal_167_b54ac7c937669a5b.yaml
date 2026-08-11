@@ -1,0 +1,10 @@
+dataset: 'siRNA1'
+featurizer: 'KMersCounts'
+featurizer_args:
+  k: [1]
+  modification_abundance: true
+model: 'RandomForestModel'
+model_args:
+  max_depth: 30
+  n_estimators: 100
+cross_validation: 'random'

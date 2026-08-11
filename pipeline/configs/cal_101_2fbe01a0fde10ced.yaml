@@ -1,0 +1,8 @@
+dataset: 'immune_modulation_TLR7'
+featurizer: 'OneHotEncoder'
+featurizer_args:
+  encode_components: ["base"]
+model: 'LinearModel'
+model_args:
+  type: 'standard'
+cross_validation: 'nucleobase'
