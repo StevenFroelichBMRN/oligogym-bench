@@ -43,13 +43,17 @@ jobs:
       # Re-run it to capture the report as an artifact.
       - name: Validation report (no GPU on the runner)
         run: |
-          docker run --rm -v "$PWD/out:/out" oligogym-bench:ci \
+          # create out/ as the runner user first: a docker -v bind would create
+          # it root-owned and the later `tee` on the host would fail.
+          mkdir -p out && chmod 777 out
+          docker run --rm -u "$(id -u):$(id -g)" -v "$PWD/out:/out" oligogym-bench:ci \
             python /opt/oligogym-bench/validate_image.py --build-time \
               --json-out /out/validation_build_time.json | tee out/validation.txt
         continue-on-error: false
 
       - name: Record image facts
         run: |
+          mkdir -p out && chmod 777 out
           docker run --rm oligogym-bench:ci python - <<'PY' | tee out/image_facts.txt
           import torch, torch_geometric, sklearn, numpy, pandas, xgboost, catboost, platform
           import pytorch_lightning as pl
