@@ -28,11 +28,9 @@ params.pack_dataset = 'siRNA1'
 params.compute_class = 'all'
 
 // ---------------------------------------------------------------- calibrate
-process CALIBRATE {
+process CALIBRATE_CPU {
     tag "${cfg.simpleName}"
-    // gpu-class configs must land on a task with an accelerator attached.
-    label meta.compute_class == 'gpu' ? 'measure_gpu' : 'measure_cpu'
-    // A failed config must not sink the run: record it and move on.
+    label 'measure_cpu'
     errorStrategy 'ignore'
 
     input:
@@ -44,18 +42,42 @@ process CALIBRATE {
 
     script:
     """
-    # One fold-fit per process; BLAS threads must not oversubscribe the slot.
     export OMP_NUM_THREADS=${task.cpus}
     export MKL_NUM_THREADS=${task.cpus}
     export OPENBLAS_NUM_THREADS=${task.cpus}
 
     python /opt/oligogym-bench/calibrate.py \\
-        --config ${cfg} \\
-        --out ${cfg.simpleName}.jsonl \\
-        --seed ${params.seed} \\
-        --folds ${params.folds} \\
+        --config ${cfg} --out ${cfg.simpleName}.jsonl \\
+        --seed ${params.seed} --folds ${params.folds} \\
         --tag "${meta.compute_class}|${meta.model}|${meta.dataset}|${meta.tier}" \\
         > ${cfg.simpleName}.log 2>&1
+    """
+}
+
+process CALIBRATE_GPU {
+    tag "${cfg.simpleName}"
+    label 'measure_gpu'
+    errorStrategy 'ignore'
+
+    input:
+    tuple val(meta), path(cfg)
+
+    output:
+    path "${cfg.simpleName}.jsonl", emit: recs, optional: true
+    path "${cfg.simpleName}.log",   emit: logs, optional: true
+
+    script:
+    """
+    export OMP_NUM_THREADS=${task.cpus}
+    export MKL_NUM_THREADS=${task.cpus}
+    export OPENBLAS_NUM_THREADS=${task.cpus}
+    nvidia-smi > ${cfg.simpleName}.log 2>&1 || echo "no nvidia-smi" > ${cfg.simpleName}.log
+
+    python /opt/oligogym-bench/calibrate.py \\
+        --config ${cfg} --out ${cfg.simpleName}.jsonl \\
+        --seed ${params.seed} --folds ${params.folds} \\
+        --tag "${meta.compute_class}|${meta.model}|${meta.dataset}|${meta.tier}" \\
+        >> ${cfg.simpleName}.log 2>&1
     """
 }
 
@@ -64,7 +86,7 @@ process CALIBRATE {
 // on identical folds rather than a comparison across two different runs.
 process CACHE_AB {
     tag "${cfg.simpleName}"
-    label meta.compute_class == 'gpu' ? 'measure_gpu' : 'measure_cpu'
+    label 'measure_cpu'
     errorStrategy 'ignore'
 
     input:
@@ -201,9 +223,15 @@ workflow {
             })
             COLLECT(CACHE_AB.out.recs.collect(), Channel.value('cache_ab'))
         } else {
-            CALIBRATE(joined)
-            COLLECT(CALIBRATE.out.recs.collect(), Channel.value('calibration'))
-            CALIBRATE.out.logs
+            branched = joined.branch {
+                gpu: it[0].compute_class == 'gpu'
+                cpu: true
+            }
+            CALIBRATE_CPU(branched.cpu)
+            CALIBRATE_GPU(branched.gpu)
+            recs = CALIBRATE_CPU.out.recs.mix(CALIBRATE_GPU.out.recs)
+            COLLECT(recs.collect(), Channel.value('calibration'))
+            CALIBRATE_CPU.out.logs.mix(CALIBRATE_GPU.out.logs)
                 .collectFile(name: 'calibration_logs.txt', storeDir: params.outdir)
         }
     }
