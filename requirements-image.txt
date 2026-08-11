@@ -1,0 +1,53 @@
+# OligoGym benchmark image — dependency closure.
+# Pins taken from the Phase-1 validated environment (requirements-pinned.txt,
+# 77 packages, macOS arm64 / python 3.11). Only direct requirements are pinned
+# here; transitive deps resolve from these and are frozen into the image by the
+# build (the built digest is the reproducibility unit — see image_build_spec.md).
+#
+# `torch` is deliberately ABSENT: it is installed in an earlier layer from the
+# CUDA index (torch==2.13.0+cu126). Listing it here would let pip pull the
+# CPU-only PyPI wheel over the CUDA one.
+#
+# NOT declared by upstream pyproject.toml but imported at module top level, so
+# a clean poetry install cannot `import oligogym`:
+#   catboost, torch_geometric, torchinfo, networkx, tqdm, scipy, pyyaml
+#   (+ torch above; rdkit/fm are try/except-guarded)
+
+# --- upstream pyproject pins, honoured exactly ---
+scikit-learn==1.4.0
+pytorch-lightning==2.2.1
+
+# --- core numerics ---
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.17.1
+
+# --- models ---
+xgboost==2.0.3
+catboost==1.2.10
+torch_geometric==2.8.0.post1
+torchmetrics==1.9.0
+lightning-utilities==0.15.3
+torchinfo==1.8.0
+tabpfn==2.0.6
+
+# --- featurizers ---
+# provides `import RNA` (features.py:15); upstream pyproject asks ^2.6.4.
+# 2.7.2 is what Phase 1 validated. cp311 manylinux x86_64 wheel exists.
+viennarna==2.7.2
+networkx==3.6.1
+biopython==1.88
+python-Levenshtein==0.27.4
+Levenshtein==0.27.4
+# provides `import fm`; gates RNA_FM_AVAILABLE (features.py:22)
+rna-fm==0.2.2
+
+# --- harness / plumbing ---
+PyYAML==6.0.3
+tqdm==4.70.0
+matplotlib==3.11.1
+seaborn==0.13.2
+# calibration instrumentation (RSS sampling)
+psutil==7.2.2
+# manifest I/O for the Phase-3 sweep
+pyarrow==22.0.0

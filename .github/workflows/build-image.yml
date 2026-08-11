@@ -1,0 +1,98 @@
+name: build-oligogym-bench-image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          df -h /
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build (load locally, do not push yet)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          tags: oligogym-bench:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # The Dockerfile already runs validate_image.py --build-time as a RUN
+      # layer, so a build that reaches here has passed every non-GPU check.
+      # Re-run it to capture the report as an artifact.
+      - name: Validation report (no GPU on the runner)
+        run: |
+          docker run --rm -v "$PWD/out:/out" oligogym-bench:ci \
+            python /opt/oligogym-bench/validate_image.py --build-time \
+              --json-out /out/validation_build_time.json | tee out/validation.txt
+        continue-on-error: false
+
+      - name: Record image facts
+        run: |
+          docker run --rm oligogym-bench:ci python - <<'PY' | tee out/image_facts.txt
+          import torch, torch_geometric, sklearn, numpy, pandas, xgboost, catboost, platform
+          import pytorch_lightning as pl
+          print("python", platform.python_version(), platform.machine())
+          print("torch", torch.__version__, "cuda", torch.version.cuda)
+          print("arch_list", torch.cuda.get_arch_list())
+          print("cudnn", torch.backends.cudnn.version())
+          print("pyg", torch_geometric.__version__)
+          print("lightning", pl.__version__)
+          print("sklearn", sklearn.__version__, "numpy", numpy.__version__,
+                "pandas", pandas.__version__)
+          print("xgboost", xgboost.__version__, "catboost", catboost.__version__)
+          for m in ("torch_scatter","torch_sparse","torch_cluster","pyg_lib"):
+              try:
+                  __import__(m); print("companion PRESENT", m)
+              except ImportError:
+                  print("companion absent (intended)", m)
+          PY
+          docker image inspect oligogym-bench:ci \
+            --format 'size_bytes={{.Size}}' | tee -a out/image_facts.txt
+          docker history --no-trunc --format '{{.Size}}\t{{.CreatedBy}}' \
+            oligogym-bench:ci | head -40 | tee out/image_layers.txt
+
+      - name: Push to GHCR
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/oligogym-bench:latest
+            ghcr.io/${{ github.repository_owner }}/oligogym-bench:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Report digest
+        run: |
+          docker buildx imagetools inspect \
+            ghcr.io/${{ github.repository_owner }}/oligogym-bench:${{ github.sha }} \
+            | tee out/image_digest.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: image-validation
+          path: out/

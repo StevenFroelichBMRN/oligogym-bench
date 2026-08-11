@@ -1,0 +1,7 @@
+This project contains a patched benchmark harness derived from
+Roche/oligogym (https://github.com/Roche/oligogym), commit
+97f5b9f58d9e445a8ecb0218037af7465c3708c0, licensed under the Apache License 2.0.
+
+The RNA-FM pretrained checkpoint baked into the image originates from the
+RNA-FM authors (https://huggingface.co/cuhkaih/rnafm) and is used under its
+own upstream license terms.
